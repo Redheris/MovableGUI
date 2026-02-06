@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "movablegui",
+  "version": "${version}",
+  "name": "Movable GUI",
+  "description": "",
+  "authors": ["Redheris"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.redheris.movablegui.client.MovableGUIModClient"
+    ],
+    "main": [
+      "dev.redheris.movablegui.MovableGUIMod"
+    ]
+  },
+  "mixins": [
+    "movablegui.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
