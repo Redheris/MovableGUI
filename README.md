@@ -12,7 +12,7 @@ plugins for positioning armor stands.
 
 ### Controls
 
-* `Alt + Left Mouse Button (drag)` — move the container GUI to the cursor position
+* `Alt + Left Mouse Button` — move the container GUI to the cursor position
 * `Shift + V` — toggle the translucent dark background. `V` can be changed in
   Key Binds settings
 
