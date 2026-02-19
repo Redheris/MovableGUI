@@ -47,7 +47,7 @@ interface ContainerEventHandlerMixin {
             ScreenAccessor acc = (ScreenAccessor) screen;
             double mouseX = btn.x();
             double mouseY = btn.y();
-            if (btn.modifiers() == 4 && btn.button() == 0) {
+            if (acc.getHoveredSlot() == null && btn.modifiers() == 4 && btn.button() == 0) {
                 GUIViewState.setX((int) mouseX);
                 GUIViewState.setY((int) mouseY);
                 acc.movablegui$setLeftPos(GUIViewState.getX());
