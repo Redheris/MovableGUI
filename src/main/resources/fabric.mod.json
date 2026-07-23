@@ -11,10 +11,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.redheris.movablegui.client.MovableGUIModClient"
+      "dev.redheris.movablegui.MovableGUIClient"
     ],
     "main": [
-      "dev.redheris.movablegui.MovableGUIMod"
+      "dev.redheris.movablegui.MovableGUI"
     ]
   },
   "mixins": [

@@ -1,6 +1,6 @@
 package dev.redheris.movablegui.mixin;
 
-import dev.redheris.movablegui.client.MovableGUIModClient;
+import dev.redheris.movablegui.MovableGUIClient;
 import dev.redheris.movablegui.state.GUIViewState;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.gui.components.events.ContainerEventHandler;
@@ -28,7 +28,7 @@ interface ContainerEventHandlerMixin {
     @Inject(method = "keyPressed", at = @At("HEAD"))
     private void limitDarkeningBackground(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
         if (this instanceof ContainerScreen) {
-            int key = KeyBindingHelper.getBoundKeyOf(MovableGUIModClient.toggleBackground).getValue();
+            int key = KeyBindingHelper.getBoundKeyOf(MovableGUIClient.toggleBackground).getValue();
             if (!GUIViewState.isKeyToggled() && keyEvent.hasShiftDown() && keyEvent.key() == key) {
                 GUIViewState.setKeyToggled(true);
                 GUIViewState.toggleTransparentBackground();
