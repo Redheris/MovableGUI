@@ -14,5 +14,5 @@ public interface ScreenAccessor {
     void movablegui$setLeftPos(int leftPos);
 
     @Accessor("hoveredSlot")
-    Slot getHoveredSlot();
+    Slot movablegui$getHoveredSlot();
 }
