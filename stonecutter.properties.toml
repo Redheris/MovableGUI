@@ -1,17 +1,17 @@
-mod.id = "templatemod"
-mod.name = "Template Mod"
-mod.group = "dev.redheris.example"
-mod.version = "0.0.1"
+mod.id = "movablegui"
+mod.name = "MovableGUI"
+mod.group = "dev.redheris.movablegui"
+mod.version = "0.3.0-alpha.1"
 mod.version_type = "ALPHA"
 mod.fabric_loader = "0.19.3"
 loomx.loom_version = "1.17-SNAPSHOT"
 
-publish.modrinth = "# Modrinth mod slug"
+publish.modrinth = "movablegui"
 publish.curseforge_id = "# Curseforge numeric mod ID"
 publish.curseforge_slug = "# Curseforge mod slug"
-publish.github_repo = "Redheris/RhMods-Template"
-publish.mod_icon_url = "https://i.imgur.com/GmVIBYV.png"
-publish.announce_for = "26.1" # "none" if no announcement
+publish.github_repo = "Redheris/MovableGUI"
+publish.mod_icon_url = "https://cdn.modrinth.com/data/GULoEp6Q/fa724855f5e86dbb5ffd78a4fa4237fdccab262e_96.webp"
+publish.announce_for = "none" # "none" if no announcement
 publish.dry_run = "false"
 
 ["1.21.11"]
