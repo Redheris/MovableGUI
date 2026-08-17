@@ -74,7 +74,7 @@ public abstract class AbstractContainerScreenMixin extends Screen {
 
         if ((Object) this instanceof ContainerScreen) {
             guiViewState.resetButton = Button.builder(
-                    Component.literal("Reset"),
+                    Component.translatable("movablegui.gui.reset"),
                     btn -> {
                         guiViewState.reset(defaultX, defaultY);
                         ScreenAccessor acc = (ScreenAccessor) this;

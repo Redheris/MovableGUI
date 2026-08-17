@@ -11,7 +11,7 @@ public class MovableGUIClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         toggleBackground = KeyBindingHelper.registerKeyBinding(
-                new KeyMapping("[MovableGUI] Background: Shift +", GLFW.GLFW_KEY_V, KeyMapping.Category.MISC)
+                new KeyMapping("key.movablegui.background", GLFW.GLFW_KEY_V, KeyMapping.Category.MISC)
         );
     }
 }
