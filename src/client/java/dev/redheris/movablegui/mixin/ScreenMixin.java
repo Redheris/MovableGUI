@@ -28,6 +28,7 @@ public abstract class ScreenMixin {
     @Unique
     private int newAlphaTo;
 
+    //~ if >=26.1 'render' -> 'extract'
     @WrapOperation(method = "renderTransparentBackground",
             at = @At(
                     value = "INVOKE",

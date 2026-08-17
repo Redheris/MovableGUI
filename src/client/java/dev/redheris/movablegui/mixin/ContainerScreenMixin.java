@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin {
+    //~ if >=26.1 'renderBg' -> 'extractBackground'
     @ModifyVariable(method = "renderBg", at = @At(value = "STORE"), index = 5)
     private int updateX(int k) {
         GUIViewState guiViewState = GUIViewState.getInstance();
@@ -16,6 +17,7 @@ public abstract class ContainerScreenMixin {
         return guiViewState.isChangedPos() ? guiViewState.getX(screen.width) : k;
     }
 
+    //~ if >=26.1 'renderBg' -> 'extractBackground'
     @ModifyVariable(method = "renderBg", at = @At(value = "STORE"), index = 6)
     private int updateY(int l) {
         GUIViewState guiViewState = GUIViewState.getInstance();

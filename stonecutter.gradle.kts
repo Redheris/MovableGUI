@@ -55,6 +55,7 @@ stonecutter parameters {
 
             replace("keybinding.v1.KeyBindingHelper", "keymapping.v1.KeyMappingHelper")
             replace("KeyBindingHelper.registerKeyBinding", "KeyMappingHelper.registerKeyMapping")
+            replace("KeyBindingHelper.getBoundKeyOf", "KeyMappingHelper.getBoundKeyOf")
 
             replace("GuiGraphics", "GuiGraphicsExtractor")
 

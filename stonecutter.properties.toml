@@ -1,8 +1,8 @@
 mod.id = "movablegui"
 mod.name = "MovableGUI"
 mod.group = "dev.redheris.movablegui"
-mod.version = "0.3.0-alpha.1"
-mod.version_type = "ALPHA"
+mod.version = "0.3.0"
+mod.version_type = "STABLE"
 mod.fabric_loader = "0.19.3"
 loomx.loom_version = "1.17-SNAPSHOT"
 
