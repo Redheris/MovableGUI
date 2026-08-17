@@ -1,28 +1,33 @@
 {
   "schemaVersion": 1,
-  "id": "movablegui",
+  "id": "${id}",
   "version": "${version}",
-  "name": "Movable GUI",
+  "name": "${name}",
   "description": "",
-  "authors": ["Redheris"],
-  "contact": {},
+  "authors": [
+    "Redheris"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/movablegui",
+    "sources": "https://github.com/Redheris/MovableGUI"
+  },
   "license": "MIT",
   "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.redheris.movablegui.client.MovableGUIModClient"
+      "dev.redheris.movablegui.MovableGUIClient"
     ],
     "main": [
-      "dev.redheris.movablegui.MovableGUIMod"
+      "dev.redheris.movablegui.MovableGUI"
     ]
   },
   "mixins": [
     "movablegui.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": ">=${fabric_loader}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft}"
   }
 }
