@@ -6,7 +6,7 @@ mod.version_type = "STABLE"
 mod.fabric_loader = "0.19.3"
 loomx.loom_version = "1.17-SNAPSHOT"
 
-publish.modrinth = "movablegui"
+publish.modrinth = "GULoEp6Q"
 publish.curseforge_id = "# Curseforge numeric mod ID"
 publish.curseforge_slug = "# Curseforge mod slug"
 publish.github_repo = "Redheris/MovableGUI"
