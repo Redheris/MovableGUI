@@ -11,13 +11,15 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class ContainerScreenMixin {
     @ModifyVariable(method = "renderBg", at = @At(value = "STORE"), index = 5)
     private int updateX(int k) {
+        GUIViewState guiViewState = GUIViewState.getInstance();
         Screen screen = (Screen) (Object) this;
-        return GUIViewState.isChangedPos() ? GUIViewState.getX(screen.width) : k;
+        return guiViewState.isChangedPos() ? guiViewState.getX(screen.width) : k;
     }
 
     @ModifyVariable(method = "renderBg", at = @At(value = "STORE"), index = 6)
     private int updateY(int l) {
+        GUIViewState guiViewState = GUIViewState.getInstance();
         Screen screen = (Screen) (Object) this;
-        return GUIViewState.isChangedPos() ? GUIViewState.getY(screen.height) : l;
+        return guiViewState.isChangedPos() ? guiViewState.getY(screen.height) : l;
     }
 }

@@ -3,53 +3,59 @@ package dev.redheris.movablegui.state;
 import net.minecraft.client.gui.components.Button;
 
 public class GUIViewState {
-    public static Button resetButton;
-    private static boolean changedPos = false;
-    private static int x = 0;
-    private static int y = 0;
-    private static boolean renderTransparentBackground = true;
-    private static boolean backgroundKeyToggled = false;
-    private static boolean animationCompleted = true;
+    private static final GUIViewState INSTANCE = new GUIViewState();
 
-    private static void setChanged(boolean changed) {
-        GUIViewState.changedPos = changed;
+    public Button resetButton;
+    private boolean changedPos = false;
+    private int x = 0;
+    private int y = 0;
+    private boolean renderTransparentBackground = true;
+    private boolean backgroundKeyToggled = false;
+    private boolean animationCompleted = true;
+
+    public static GUIViewState getInstance() {
+        return INSTANCE;
+    }
+
+    private void setChanged(boolean changed) {
+        this.changedPos = changed;
         if (resetButton != null)
             resetButton.visible = changed;
     }
 
-    public static int getX(int width) {
+    public int getX(int width) {
         return Math.clamp(x, 0, width - 20);
     }
 
-    public static void setX(int x) {
+    public void setX(int x) {
         setChanged(true);
-        GUIViewState.x = x;
+        this.x = x;
         resetButton.setX(x);
     }
 
-    public static int getY(int height) {
+    public int getY(int height) {
         return Math.clamp(y, 0, height - 20);
     }
 
-    public static void setY(int y) {
+    public void setY(int y) {
         setChanged(true);
-        GUIViewState.y = y;
+        this.y = y;
         resetButton.setY(y - 20);
     }
 
-    public static boolean isAnimationCompleted() {
+    public boolean isAnimationCompleted() {
         return animationCompleted;
     }
 
-    public static void setAnimationCompleted(boolean animationCompleted) {
-        GUIViewState.animationCompleted = animationCompleted;
+    public void setAnimationCompleted(boolean animationCompleted) {
+        this.animationCompleted = animationCompleted;
     }
 
-    public static boolean doRenderTransparentBackground() {
+    public boolean doRenderTransparentBackground() {
         return renderTransparentBackground;
     }
 
-    public static void toggleTransparentBackground() {
+    public void toggleTransparentBackground() {
         renderTransparentBackground = !renderTransparentBackground;
         if (!changedPos) {
             resetButton.visible = !renderTransparentBackground;
@@ -57,33 +63,33 @@ public class GUIViewState {
         animationCompleted = false;
     }
 
-    public static boolean isBackgroundKeyToggled() {
+    public boolean isBackgroundKeyToggled() {
         return backgroundKeyToggled;
     }
 
-    public static void setBackgroundKeyToggled(boolean backgroundKeyToggled) {
-        GUIViewState.backgroundKeyToggled = backgroundKeyToggled;
+    public void setBackgroundKeyToggled(boolean backgroundKeyToggled) {
+        this.backgroundKeyToggled = backgroundKeyToggled;
     }
 
-    public static void reset(int leftPos, int topPos) {
+    public void reset(int leftPos, int topPos) {
         setChanged(false);
         x = leftPos;
         y = topPos;
         renderTransparentBackground = true;
-        GUIViewState.resetButton.visible = false;
+        this.resetButton.visible = false;
         animationCompleted = false;
     }
 
 
-    public static boolean isDefault() {
+    public boolean isDefault() {
         return !changedPos && renderTransparentBackground;
     }
 
-    public static boolean isChangedPos() {
+    public boolean isChangedPos() {
         return changedPos;
     }
 
-    public static void updateButtonPos(Integer containerX, Integer containerY) {
+    public void updateButtonPos(Integer containerX, Integer containerY) {
         resetButton.setX(containerX);
         resetButton.setY(containerY - 20);
     }

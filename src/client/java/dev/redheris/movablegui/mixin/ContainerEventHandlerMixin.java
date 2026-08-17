@@ -36,17 +36,18 @@ interface ContainerEventHandlerMixin {
     @Inject(method = "keyPressed", at = @At("HEAD"))
     private void limitDarkeningBackground(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
         if (this instanceof ContainerScreen) {
+            GUIViewState guiViewState = GUIViewState.getInstance();
             int key = KeyBindingHelper.getBoundKeyOf(MovableGUIClient.toggleBackground).getValue();
-            if (!GUIViewState.isBackgroundKeyToggled() && keyEvent.hasShiftDown() && keyEvent.key() == key) {
-                GUIViewState.setBackgroundKeyToggled(true);
-                GUIViewState.toggleTransparentBackground();
+            if (!guiViewState.isBackgroundKeyToggled() && keyEvent.hasShiftDown() && keyEvent.key() == key) {
+                guiViewState.setBackgroundKeyToggled(true);
+                guiViewState.toggleTransparentBackground();
             }
         }
     }
 
     @Inject(method = "keyReleased", at = @At("HEAD"))
     private void resetKeyToggled(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
-        GUIViewState.setBackgroundKeyToggled(false);
+        GUIViewState.getInstance().setBackgroundKeyToggled(false);
     }
 
     @Unique
@@ -57,13 +58,14 @@ interface ContainerEventHandlerMixin {
             double mouseY = btn.y();
 
             if (acc.movablegui$getHoveredSlot() == null && btn.modifiers() == 4 && btn.button() == 0) {
+                GUIViewState guiViewState = GUIViewState.getInstance();
                 if (mouseX >= 0 && mouseX <= screen.width - 20) {
-                    GUIViewState.setX((int) mouseX);
-                    acc.movablegui$setLeftPos(GUIViewState.getX(screen.width));
+                    guiViewState.setX((int) mouseX);
+                    acc.movablegui$setLeftPos(guiViewState.getX(screen.width));
                 }
                 if (mouseY >= 0 && mouseY <= screen.height - 20) {
-                    GUIViewState.setY((int) mouseY);
-                    acc.movablegui$setTopPos(GUIViewState.getY(screen.height));
+                    guiViewState.setY((int) mouseY);
+                    acc.movablegui$setTopPos(guiViewState.getY(screen.height));
                 }
                 return true;
             }

@@ -41,9 +41,10 @@ public abstract class AbstractContainerScreenMixin extends Screen {
     )
     private void initLeftPos(AbstractContainerScreen<?> instance, int value, Operation<Void> original) {
         if (instance instanceof ContainerScreen) {
+            GUIViewState guiViewState = GUIViewState.getInstance();
             defaultX = value;
-            if (GUIViewState.isChangedPos()) {
-                original.call(instance, GUIViewState.getX(width));
+            if (guiViewState.isChangedPos()) {
+                original.call(instance, guiViewState.getX(width));
             }
         }
         original.call(instance, value);
@@ -59,8 +60,9 @@ public abstract class AbstractContainerScreenMixin extends Screen {
     )
     private void initTopPos(AbstractContainerScreen<?> instance, int value, Operation<Void> original) {
         if (instance instanceof ContainerScreen) {
+            GUIViewState guiViewState = GUIViewState.getInstance();
             defaultY = value;
-            original.call(instance, GUIViewState.isChangedPos() ? GUIViewState.getY(height) : value);
+            original.call(instance, guiViewState.isChangedPos() ? guiViewState.getY(height) : value);
         } else {
             original.call(instance, value);
         }
@@ -68,15 +70,17 @@ public abstract class AbstractContainerScreenMixin extends Screen {
 
     @WrapMethod(method = "init")
     private void initResetButton(Operation<Void> original) {
+        GUIViewState guiViewState = GUIViewState.getInstance();
+
         if ((Object) this instanceof ContainerScreen) {
-            GUIViewState.resetButton = Button.builder(
+            guiViewState.resetButton = Button.builder(
                     Component.literal("Reset"),
                     btn -> {
-                        GUIViewState.reset(defaultX, defaultY);
+                        guiViewState.reset(defaultX, defaultY);
                         ScreenAccessor acc = (ScreenAccessor) this;
                         acc.movablegui$setLeftPos(defaultX);
                         acc.movablegui$setTopPos(defaultY);
-                        GUIViewState.updateButtonPos(defaultX, defaultY);
+                        guiViewState.updateButtonPos(defaultX, defaultY);
                     }
             ).size(40, 20).pos(10, 10).build();
         }
@@ -85,15 +89,15 @@ public abstract class AbstractContainerScreenMixin extends Screen {
 
         if ((Object) this instanceof ContainerScreen) {
             // Add reset button
-            this.addRenderableWidget(GUIViewState.resetButton);
-            GUIViewState.resetButton.visible = !GUIViewState.isDefault();
+            this.addRenderableWidget(guiViewState.resetButton);
+            guiViewState.resetButton.visible = !guiViewState.isDefault();
             // Move slots
-            if (GUIViewState.isChangedPos()) {
+            if (guiViewState.isChangedPos()) {
                 ScreenAccessor acc = (ScreenAccessor) this;
-                acc.movablegui$setLeftPos(GUIViewState.getX(width));
-                acc.movablegui$setTopPos(GUIViewState.getY(height));
+                acc.movablegui$setLeftPos(guiViewState.getX(width));
+                acc.movablegui$setTopPos(guiViewState.getY(height));
             }
-            GUIViewState.updateButtonPos(leftPos, topPos);
+            guiViewState.updateButtonPos(leftPos, topPos);
         }
     }
 }

@@ -36,6 +36,8 @@ public abstract class ScreenMixin {
     )
     private void fadeDarkeningBackground(GuiGraphics instance, int minX, int minY, int maxX, int maxY, int colorFrom, int colorTo, Operation<Void> original) {
         if ((Object) this instanceof ContainerScreen ) {
+            GUIViewState guiViewState = GUIViewState.getInstance();
+
             if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_LEFT_ALT)) {
                 instance.requestCursor(CursorTypes.POINTING_HAND);
             }
@@ -44,22 +46,22 @@ public abstract class ScreenMixin {
                 originalAlphaFrom = newAlphaFrom = ARGB.alpha(colorFrom);
                 originalAlphaTo = newAlphaTo = ARGB.alpha(colorTo);
             }
-            if (!GUIViewState.isAnimationCompleted()) {
+            if (!guiViewState.isAnimationCompleted()) {
                 int step = 5;
-                if (GUIViewState.doRenderTransparentBackground()) {
+                if (guiViewState.doRenderTransparentBackground()) {
                     newAlphaFrom = Math.min(newAlphaFrom + step, originalAlphaFrom);
                     newAlphaTo = Math.min(newAlphaTo + step, originalAlphaTo);
                     if (newAlphaFrom == originalAlphaFrom && newAlphaTo == originalAlphaTo) {
-                        GUIViewState.setAnimationCompleted(true);
+                        guiViewState.setAnimationCompleted(true);
                     }
                 } else {
                     newAlphaFrom = Math.max(newAlphaFrom - step, 0);
                     newAlphaTo = Math.max(newAlphaTo - step, 0);
                     if (newAlphaFrom == 0 && newAlphaTo == 0) {
-                        GUIViewState.setAnimationCompleted(true);
+                        guiViewState.setAnimationCompleted(true);
                     }
                 }
-            } else if (!GUIViewState.doRenderTransparentBackground()) {
+            } else if (!guiViewState.doRenderTransparentBackground()) {
                 newAlphaFrom = 0;
                 newAlphaTo = 0;
             }
@@ -71,6 +73,6 @@ public abstract class ScreenMixin {
 
     @Inject(method = "onClose", at = @At("TAIL"))
     private void finishAnimation(CallbackInfo ci) {
-        GUIViewState.setAnimationCompleted(true);
+        GUIViewState.getInstance().setAnimationCompleted(true);
     }
 }
