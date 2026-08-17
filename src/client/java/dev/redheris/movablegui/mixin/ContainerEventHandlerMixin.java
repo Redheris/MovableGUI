@@ -1,5 +1,7 @@
 package dev.redheris.movablegui.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.redheris.movablegui.MovableGUIClient;
 import dev.redheris.movablegui.state.GUIViewState;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -15,22 +17,28 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ContainerEventHandler.class)
 interface ContainerEventHandlerMixin {
-    @Inject(method = "mouseDragged", at = @At("HEAD"), cancellable = true)
-    private void drag(MouseButtonEvent btn, double x, double y, CallbackInfoReturnable<Boolean> cir) {
-        updatePos(btn, cir);
+    @WrapMethod(method = "mouseDragged")
+    private boolean drag(MouseButtonEvent event, double mouseX, double mouseY, Operation<Boolean> original) {
+        if (updatePos(event)) {
+            return true;
+        }
+        return original.call(event, mouseX, mouseY);
     }
 
-    @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
-    private void click(MouseButtonEvent btn, boolean doubleClick, CallbackInfoReturnable<Boolean> cir) {
-        updatePos(btn, cir);
+    @WrapMethod(method = "mouseClicked")
+    private boolean click(MouseButtonEvent event, boolean isDoubleClick, Operation<Boolean> original) {
+        if (updatePos(event)) {
+            return true;
+        }
+        return original.call(event, isDoubleClick);
     }
 
     @Inject(method = "keyPressed", at = @At("HEAD"))
     private void limitDarkeningBackground(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
         if (this instanceof ContainerScreen) {
             int key = KeyBindingHelper.getBoundKeyOf(MovableGUIClient.toggleBackground).getValue();
-            if (!GUIViewState.isKeyToggled() && keyEvent.hasShiftDown() && keyEvent.key() == key) {
-                GUIViewState.setKeyToggled(true);
+            if (!GUIViewState.isBackgroundKeyToggled() && keyEvent.hasShiftDown() && keyEvent.key() == key) {
+                GUIViewState.setBackgroundKeyToggled(true);
                 GUIViewState.toggleTransparentBackground();
             }
         }
@@ -38,22 +46,28 @@ interface ContainerEventHandlerMixin {
 
     @Inject(method = "keyReleased", at = @At("HEAD"))
     private void resetKeyToggled(KeyEvent keyEvent, CallbackInfoReturnable<Boolean> cir) {
-        GUIViewState.setKeyToggled(false);
+        GUIViewState.setBackgroundKeyToggled(false);
     }
 
     @Unique
-    private void updatePos(MouseButtonEvent btn, CallbackInfoReturnable<Boolean> cir) {
+    private boolean updatePos(MouseButtonEvent btn) {
         if ((Object) this instanceof ContainerScreen screen) {
             ScreenAccessor acc = (ScreenAccessor) screen;
             double mouseX = btn.x();
             double mouseY = btn.y();
+
             if (acc.movablegui$getHoveredSlot() == null && btn.modifiers() == 4 && btn.button() == 0) {
-                GUIViewState.setX((int) mouseX);
-                GUIViewState.setY((int) mouseY);
-                acc.movablegui$setLeftPos(GUIViewState.getX());
-                acc.movablegui$setTopPos(GUIViewState.getY());
-                cir.setReturnValue(true);
+                if (mouseX >= 0 && mouseX <= screen.width - 20) {
+                    GUIViewState.setX((int) mouseX);
+                    acc.movablegui$setLeftPos(GUIViewState.getX(screen.width));
+                }
+                if (mouseY >= 0 && mouseY <= screen.height - 20) {
+                    GUIViewState.setY((int) mouseY);
+                    acc.movablegui$setTopPos(GUIViewState.getY(screen.height));
+                }
+                return true;
             }
         }
+        return false;
     }
 }

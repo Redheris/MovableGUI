@@ -8,7 +8,8 @@ public class GUIViewState {
     private static int x = 0;
     private static int y = 0;
     private static boolean renderTransparentBackground = true;
-    private static boolean keyToggled = false;
+    private static boolean backgroundKeyToggled = false;
+    private static boolean animationCompleted = true;
 
     private static void setChanged(boolean changed) {
         GUIViewState.changedPos = changed;
@@ -16,8 +17,8 @@ public class GUIViewState {
             resetButton.visible = changed;
     }
 
-    public static int getX() {
-        return x;
+    public static int getX(int width) {
+        return Math.clamp(x, 0, width - 20);
     }
 
     public static void setX(int x) {
@@ -26,14 +27,22 @@ public class GUIViewState {
         resetButton.setX(x);
     }
 
-    public static int getY() {
-        return y;
+    public static int getY(int height) {
+        return Math.clamp(y, 0, height - 20);
     }
 
     public static void setY(int y) {
         setChanged(true);
         GUIViewState.y = y;
         resetButton.setY(y - 20);
+    }
+
+    public static boolean isAnimationCompleted() {
+        return animationCompleted;
+    }
+
+    public static void setAnimationCompleted(boolean animationCompleted) {
+        GUIViewState.animationCompleted = animationCompleted;
     }
 
     public static boolean doRenderTransparentBackground() {
@@ -45,14 +54,15 @@ public class GUIViewState {
         if (!changedPos) {
             resetButton.visible = !renderTransparentBackground;
         }
+        animationCompleted = false;
     }
 
-    public static boolean isKeyToggled() {
-        return keyToggled;
+    public static boolean isBackgroundKeyToggled() {
+        return backgroundKeyToggled;
     }
 
-    public static void setKeyToggled(boolean keyToggled) {
-        GUIViewState.keyToggled = keyToggled;
+    public static void setBackgroundKeyToggled(boolean backgroundKeyToggled) {
+        GUIViewState.backgroundKeyToggled = backgroundKeyToggled;
     }
 
     public static void reset(int leftPos, int topPos) {
@@ -61,6 +71,7 @@ public class GUIViewState {
         y = topPos;
         renderTransparentBackground = true;
         GUIViewState.resetButton.visible = false;
+        animationCompleted = false;
     }
 
 
@@ -72,8 +83,8 @@ public class GUIViewState {
         return changedPos;
     }
 
-    public static void updateButtonPos(Integer defaultX, Integer defaultY) {
-        resetButton.setX(defaultX);
-        resetButton.setY(defaultY - 20);
+    public static void updateButtonPos(Integer containerX, Integer containerY) {
+        resetButton.setX(containerX);
+        resetButton.setY(containerY - 20);
     }
 }

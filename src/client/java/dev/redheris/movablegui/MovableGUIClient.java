@@ -6,12 +6,12 @@ import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
 
 public class MovableGUIClient implements ClientModInitializer {
-    public static KeyMapping toggleBackground = KeyBindingHelper.registerKeyBinding(
-            new KeyMapping("Toggle Translucent Background", GLFW.GLFW_KEY_V, KeyMapping.Category.MISC)
-    );
+    public static KeyMapping toggleBackground;
 
     @Override
     public void onInitializeClient() {
-
+        toggleBackground = KeyBindingHelper.registerKeyBinding(
+                new KeyMapping("[MovableGUI] Background: Shift +", GLFW.GLFW_KEY_V, KeyMapping.Category.MISC)
+        );
     }
 }
