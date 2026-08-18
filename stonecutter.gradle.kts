@@ -25,7 +25,7 @@ publishMods {
     github {
         accessToken = env.GITHUB_TOKEN.orElse("")
         repository = property("publish.github_repo") as String
-        commitish = "main"
+        commitish = "master"
         tagName = version
 
         allowEmptyFiles = true
