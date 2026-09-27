@@ -4,13 +4,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.cursor.CursorTypes;
+import dev.redheris.movablegui.CompatUtils;
 import dev.redheris.movablegui.state.GUIViewState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.util.ARGB;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,7 +38,7 @@ public abstract class ScreenMixin {
         if ((Object) this instanceof ContainerScreen ) {
             GUIViewState guiViewState = GUIViewState.getInstance();
 
-            if (InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_LEFT_ALT)) {
+            if (CompatUtils.isKeyDown(InputConstants.KEY_LALT)) {
                 instance.requestCursor(CursorTypes.POINTING_HAND);
             }
 

@@ -2,6 +2,7 @@ package dev.redheris.movablegui.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.mojang.blaze3d.platform.InputConstants;
 import dev.redheris.movablegui.MovableGUIClient;
 import dev.redheris.movablegui.state.GUIViewState;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -57,7 +58,10 @@ interface ContainerEventHandlerMixin {
             double mouseX = btn.x();
             double mouseY = btn.y();
 
-            if (acc.movablegui$getHoveredSlot() == null && btn.modifiers() == 4 && btn.button() == 0) {
+            boolean onlyAltMod = (btn.modifiers() & InputConstants.MOD_ALT) != 0 &&
+                    (btn.modifiers() & (InputConstants.MOD_SHIFT | InputConstants.MOD_CONTROL)) == 0;
+
+            if (acc.movablegui$getHoveredSlot() == null && onlyAltMod && btn.button() == InputConstants.MOUSE_BUTTON_LEFT) {
                 GUIViewState guiViewState = GUIViewState.getInstance();
                 if (mouseX >= 0 && mouseX <= screen.width - 20) {
                     guiViewState.setX((int) mouseX);

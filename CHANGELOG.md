@@ -1,3 +1,1 @@
-- Update development environment to use Stonecutter;
-- Background switching became smooth;
-- Update to newer versions: 26.1, 26.2;
+- Update to 26.3;

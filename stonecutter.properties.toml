@@ -1,10 +1,10 @@
 mod.id = "movablegui"
 mod.name = "MovableGUI"
 mod.group = "dev.redheris.movablegui"
-mod.version = "0.3.0"
+mod.version = "0.3.1"
 mod.version_type = "STABLE"
 mod.fabric_loader = "0.19.3"
-loomx.loom_version = "1.17-SNAPSHOT"
+loomx.loom_version = "1.18-SNAPSHOT"
 
 publish.modrinth = "GULoEp6Q"
 publish.curseforge_id = "# Curseforge numeric mod ID"
@@ -41,3 +41,11 @@ release_title = "26.2"
 mc_targets = "26.2"
 # Dependencies
 fabric_api = "0.155.2+26.2"
+
+["26.3"]
+mc_dep = "26.3"
+mc_dep_fabric = "~26.3"
+release_title = "26.3"
+mc_targets = "26.3"
+# Dependencies
+fabric_api = "0.160.5+26.3"
